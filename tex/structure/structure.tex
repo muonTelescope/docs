@@ -1,0 +1,50 @@
+\section{Structure}
+
+
+
+\subsection{Technologies}
+
+The application is built on many modren web technologies. This allows the applicaiton to be easily scaleable, modular, and deplyable. The following sections list the technologies and how they are used.
+
+\subsubsection{Docker}
+\href{https://www.docker.com/}{Docker} is a linux containerization platform. By created virtual containers that share the same underlying kernel, docker is able to provide an internal routing network as well as seperation and modularity of modules designed. Docker is also being used for deployment, instead of requiring the user to install multiple packages and configure them, or doing so though a makefile designed for the distro installation, we are able to target just the processor arcetecture, meaning installing docker on either a ARM or x86 processor is the only requirement. The containers are configured to install debian and then only the software required for the execution of that module, this allows debugging and testing of single modules, and removal of modules not needed for an application.
+
+\subsubsection{Node.js}
+\href{https://nodejs.org/en/}{Node.js} is a Javascript runtime built on Chrome's V8 engine. It us used for back-end processing and is the server-side languge we use. Its event driven asyncronous model allows serving multiple requests without blocking. It is also highly extensible via \href{https://www.npmjs.com/}{NPM} (Node Package Manager) which provides many modules to speed up workflow. Some of the modules we use as well as thier funcitons are shown below.
+
+\begin{itemize}
+  \item \emph{Express} - Web server for hosting dynamic content. Backbone of our REST API.
+  \item \emph{Sequelize} - MySql interface that allows direct queries.
+  \item \emph{RaspIO} - Input-output capabilities for the Raspberry Pi.
+\end{itemize}
+
+We also have many custom built modules such as those for communicating with the GPS module and other hardware that is specific to our design.
+
+\subsubsection{MySQL}
+\href{https://www.mysql.com/}{MySQL} is a open source relational database that is used to store and acsess data produced by the detectors. MySQL provides a convient command line interface and allows database replicaiton for .The database scheema an structure is described in its own section.
+
+\subsubsection{Polymer}
+\href{https://www.polymer-project.org/1.0/}{Polymer} is a library designed to make using web-components introducted and accepted in the latest web standards easy to use and implement. Web componets allow html imports allowing web front-ends to be built modularly. It also includes a library of web componets that follow Google's \href{https://material.io/guidelines/}{material design} guidleines preseinting a consistant style. With HTML imports, the HTML of the page is able to only fetch what it needs, and speeds up page loading. It also allows easy reuse of sections designed. Polymer also includes a data-binding system allowing communication between providied and custom built modules.
+
+\subsubsection{NGINX}
+\href{https://www.nginx.com/resources/wiki/}{NGINX} is a high preformance low recource web server. It is being used to not only serve the static content, but also to proxy-pass the requests for dynamic content and load balalcne them between the intacnes running in other containers.
+
+\subsubsection{Firebase}
+\href{https://firebase.google.com/}{Firebase} provides a full backend server management interface as well as hosting, database, and other tools. We wil be primarily using it for its user authentication. It intergrates easily into polymer, and can provide security tokens to users.
+
+\subsubsection{Slack}
+\href{https://slack.com/}{Slack} is a business focused highly intergrateable instant messaging platform designed to replace fragmented email communication. We will be using it for sending the state of the machine and getting its ip address, location and other onformation on boot.
+
+\subsection{Architecture}
+The architecture is designed in a manner to maximise the utility of all the modules and compnents created. Becasue of this the archetecture varies depending on if it is a server, a client, or takes both roles.
+
+
+
+\subsection{Operation}
+
+Building and running the system is fairly simple and requires a single command to bring all the docker containers up.
+
+\begin{verbatim}
+cd cosmicNetwork
+sudo docker-compose up --file arm.dockercompose.yml --build
+\end{verbatim}

@@ -1,0 +1,38 @@
+\section{MPPC Interface}
+
+A single assembled board breaks out singals and provides all the interfaces that 4 MPPC Sesnor boards need. The power to each module is supplied via the MPPC high voltage modules attached board. It is able to be run independently for testing and debugging, or on a backplane with many others for more channels.
+
+\fig{./tex/mppcInterface/img/mppcInterfaceTopISO}{Top view of assembled MPPC interface board.}{mppcInterfaceTopISO}
+
+\subsection{Hardware}
+The board attaches directly to a Raspberry Pi using the centered GPIO headers. The Raspberry Pi is mounted to the board via four standoffs. It is a stand alone board requiring no backplane. This board can be mounted via the M5 screw holes around the edge.
+
+\subsubsection{Power}
+Power is supplied through two pins on the edge connector, or via the micro USB port on board. There is a 600mA buck regulator that provides power when the USB port is used. The board should be powered by 3.3V and a negative power supply module with convert it to -3.3V for the biasing for the op-amps.
+
+\subsubsection{High Voltage}
+High voltage is supplied through a daughter board. Each channel has a independent voltage source that can be temperature modulated and monitored via the on board ADC. Further information about the modules can be found in Section.
+
+\subsubsection{Microcontroller}
+The side of the board has a Arduino compatible (\href{http://www.atmel.com/images/Atmel-8271-8-bit-AVR-Microcontroller-ATmega48A-48PA-88A-88PA-168A-168PA-328-328P_datasheet_Complete.pdf}{ATmega328}) microcontroller, along with a USB part, USB to UART converter and other supporting circuitry. The button is connected to the reset pin. The programing port on board is a Tag-Connect 6 pin, and is only used for programing the Arduino bootloader.
+
+\fig{./tex/mppcInterface/img/mppcInterfaceBottom}{Bottom of populated board showing sensors and AVR.}{mppcInterfaceBottom}
+
+\subsubsection{I2C Switch}
+As all the ADC modules on the daughter boards have the same address, a 8 channel I2C switch ([TCA9548A](http://www.ti.com/lit/ds/symlink/tca9548a.pdf)) is used to communicate to them independently. The pins attached to it are referenced as master, as the microcontroller is acting as the master controlling it.
+
+\subsubsection{Pinout}
+There are eight RJ-45 jacks on the edge of the board, each jack has the following pinout. The signal lines are kept on a single twisted pair so if a differential signal is used, higher signal integrity is maintained. The pinout matches that of the MPPC sensor board.
+
+\fig{./tex/mppcInterface/img/mppcInterfaceBottomISO}{Isometric view of bottom.}{mppcInterfaceBottomISO}
+
+\subsection{Software}
+The device acts as both a master and slave device. It takes instructions from an external I2C bus, and executes them on the AVR microcontroller to set voltages, provide telemetry, and preform closed loop control.
+
+\subsubsection{AVR Firmware}
+The microcontroller on board takes commands sent to the whole module, and forwards them to each daughterboard. It primary control loop involves reading the temperature, finding the associated required bias voltage based on the temperature and setting the voltage on the high voltage supply, then checking if the output voltage is within specification of the required output, and fixing it if not. This loops for all eight channels. Otherwise there is an instruction queue of commands that come into the module.
+
+\subsubsection{Module}
+The master can communicate to up to 128 slave devices the address is set within software. The master can request the temperature, or current voltage of any of the eight channels on board, select between different voltage to temperature curves, and set the bias voltage, or pulse the LED on the modules.
+
+\pagebreak

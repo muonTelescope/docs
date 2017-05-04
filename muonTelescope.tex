@@ -1,0 +1,123 @@
+\documentclass[12pt]{report}
+
+\usepackage[top=1in, bottom=1.25in, left=1.25in, right=1.25in]{geometry}
+
+\usepackage{siunitx}
+\usepackage{hyperref}
+\usepackage[all]{hypcap}        % needed to help hyperlinks direct correctly;
+\usepackage{xfrac}
+\usepackage{adjustbox}
+\usepackage{pdfpages}
+
+% Drawings
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows}
+
+% Source Code
+\usepackage{listings}
+\usepackage{color}
+
+% Chapter Title, fix to amke it look better
+\usepackage{titlesec}
+\titleformat
+{\chapter} % command
+[display] % shape
+{\bfseries\Large\itshape} % format
+{\centering Chapter \thechapter} % label
+{0.5ex} % sep
+{
+    \rule{\textwidth}{1pt}
+    \vspace{1ex}
+    \centering
+} % before-code
+[
+\vspace{-0.5ex}%
+\rule{\textwidth}{0.3pt}
+] % after-code
+
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+
+\lstset{ %
+  backgroundcolor=\color{white},   % choose the background color; you must add \usepackage{color} or \usepackage{xcolor}; should come as last argument
+  basicstyle=\footnotesize,        % the size of the fonts that are used for the code
+  breakatwhitespace=false,         % sets if automatic breaks should only happen at whitespace
+  breaklines=true,                 % sets automatic line breaking
+  captionpos=b,                    % sets the caption-position to bottom
+  commentstyle=\color{mygreen},    % comment style
+  deletekeywords={...},            % if you want to delete keywords from the given language
+  escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+  extendedchars=true,              % lets you use non-ASCII characters; for 8-bits encodings only, does not work with UTF-8
+  frame=single,	                   % adds a frame around the code
+  keepspaces=true,                 % keeps spaces in text, useful for keeping indentation of code (possibly needs columns=flexible)
+  keywordstyle=\color{blue},       % keyword style
+  language=Octave,                 % the language of the code
+  morekeywords={*,...},           % if you want to add more keywords to the set
+  numbers=left,                    % where to put the line-numbers; possible values are (none, left, right)
+  numbersep=5pt,                   % how far the line-numbers are from the code
+  numberstyle=\tiny\color{mygray}, % the style that is used for the line-numbers
+  rulecolor=\color{black},         % if not set, the frame-color may be changed on line-breaks within not-black text (e.g. comments (green here))
+  showspaces=false,                % show spaces everywhere adding particular underscores; it overrides 'showstringspaces'
+  showstringspaces=false,          % underline spaces within strings only
+  showtabs=false,                  % show tabs within strings adding particular underscores
+  stepnumber=2,                    % the step between two line-numbers. If it's 1, each line will be numbered
+  stringstyle=\color{mymauve},     % string literal style
+  tabsize=2,	                   % sets default tabsize to 2 spaces
+  title=\lstname                   % show the filename of files included with \lstinputlisting; also try caption instead of title
+}
+
+% Images in figures
+\usepackage{graphicx}
+\newcommand{\fig}[3]{
+  \begin{figure}[!h]
+      \centering
+      \includegraphics[width=0.8\textwidth]{#1}
+      \caption{#2}
+      \label{fig:#3}
+  \end{figure}
+}
+
+% Landscape
+\usepackage{pdflscape}
+
+% Bill of Materials product
+% \product{item,href,QTY,unitPrice,extendedPrice}
+\newcommand{\product}[6]{
+    {#1} & {#2} & {#3} & {#4} & {#5} & {#6} \\
+}
+
+
+\title{Muon Telescope}
+\author{Sawaiz Syed}
+
+\begin{document}
+
+\maketitle 
+\tableofcontents{}
+
+\begin{abstract}
+    The assembly, software, and operation of a three paddle plastic scintillator detector. 
+\end{abstract}
+
+\pagebreak
+\chapter{Components}
+\input{./tex/scintillatorPanel/scintillatorPanel.tex}
+\input{./tex/mppcSensor/mppcSensor.tex}
+\input{./tex/mppcHighVoltage/mppcHighVoltage.tex}
+\input{./tex/mppcInterface/mppcInterface.tex}
+\input{./tex/frame/frame.tex}
+\chapter{Assembly}
+\input{./tex/assembly/assembly.tex}
+\chapter{Software}
+\input{./tex/structure/structure.tex}
+
+
+%\input{./tex/hardware.tex}
+%\input{./tex/software.tex}
+%\input{./tex/operation.tex}
+%\input{./tex/appendix.tex}
+
+\pagebreak
+
+\end{document}
