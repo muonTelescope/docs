@@ -1,6 +1,6 @@
 \section{MPPC High Voltage Supply}
 
-Surface mount module that provides $\SI{52.5}{\volt}$ to $\SI{57.5}{\volt}$ in $\SI{20}{\milli\volt}$ increments. Also contains a 2 input 24bit ADC to allow for closed loop control of the voltage, and read in a thermistor mounted near the sensor. Rendering of a fully assembled module shown in  Figure~\ref{fig:withEMIshield}.
+Surface mount module that provides $\SI{52.5}{\volt}$ to $\SI{57.5}{\volt}$ in $\SI{20}{\milli\volt}$ increments. Also contains a 2 input 24bit ADC to allow for closed loop control of the voltage, and read in a thermistor mounted near the sensor. Rendering of a fully assembled module shown in Figure~\ref{fig:withEMIshield}.
 
 \fig{./tex/mppcHighVoltage/img/withEMIshield}{Board rendering with EMI shield.}{withEMIshield}
 
@@ -47,20 +47,20 @@ The module uses a MAX1932 APD bias voltage boost converter and NAU7802SGI 24bit 
     \label{tab:mppcHighVoltageBOM}
 \end{table}
 
-\fig{./tex/mppcHighVoltage/img/noShieldFront}{EMI shield removed showing switching reigion.}{noShieldFront}
+\fig{./tex/mppcHighVoltage/img/noShieldFront}{EMI shield removed showing switching region.}{noShieldFront}
 
 \subsubsection{High Voltage}
-The module uses a \href{http://datasheets.maximintegrated.com/en/ds/MAX1932.pdf}{MAX1932} APD bias voltage boost converter to create and maintain the output voltage. The voltage range, and step size is dictated with setting \texttt{R2}, \texttt{R3}, and \texttt{R4}. The minimum and maximum voltage set using the equations for on page 7 of the datasheet, and there are 8 bits (256) intermediate values that are possible the coresponding schematic is showin in Figure~\ref{fig:hvSchematic}. The high switching portion was designed with general SMPS design requirements (short high current loops, separated ground planes, EMI shielding) providing a low ripple output ($<\SI{5}{\milli\volt}_{pp}$ ripple) and no significant back EMF.
+The module uses a \href{http://datasheets.maximintegrated.com/en/ds/MAX1932.pdf}{MAX1932} APD bias voltage boost converter to create and maintain the output voltage. The voltage range, and step size is dictated with setting \texttt{R2}, \texttt{R3}, and \texttt{R4}. The minimum and maximum voltage set using the equations for on page 7 of the datasheet, and there are 8 bits (256) intermediate values that are possible the corresponding schematic is show in in Figure~\ref{fig:hvSchematic}. The high switching portion was designed with general SMPS design requirements (short high current loops, separated ground planes, EMI shielding) providing a low ripple output ($<\SI{5}{\milli\volt}_{pp}$ ripple) and no significant back EMF.
 
 \fig{./tex/mppcHighVoltage/img/hvSchematic}{Schematic for high voltage boost converter.}{hvSchematic}
 
 \subsubsection{ADC}
-The analog to digital converter is a one designed for high precision and low sampling rate. The \href{http://www.nuvoton.com/resource-files/NAU7802%20Data%20Sheet%20V1.7.pdf}{NAU7802SGI} is marketed at the load sensing market, but the high precision and low sampling rate lends itself well to the closed loop control and monitoring application. The high voltage is divided by 50 and the thermistor is put across a equivalent 100K static resistor to go along with he 100K NTC found on the MPPC sensor module to act as a voltage divider, see Figure~\ref{fig:assemblySchematic} for details.
+The analogue to digital converter is a one designed for high precision and low sampling rate. The \href{http://www.nuvoton.com/resource-files/NAU7802%20Data%20Sheet%20V1.7.pdf}{NAU7802SGI} is marketed at the load sensing market, but the high precision and low sampling rate lends itself well to the closed loop control and monitoring application. The high voltage is divided by 50 and the thermistor is put across a equivalent 100K static resistor to go along with the 100K NTC found on the MPPC sensor module to act as a voltage divider, see Figure~\ref{fig:assemblySchematic} for details.
 
 \fig{./tex/mppcHighVoltage/img/assemblySchematic}{Schematic showing contacts, adc, and high voltage hierarchy block.}{assemblySchematic}
 
 \subsection{Software}
-Each module has two buses that run to it, I\textsuperscript{2}C (pronounced I-two-C) and SPI. SPI requires data, clock, and a chip-select meaning each deveice on the bus will need an independent chip select. I\textsuperscript{2}C devices have a fixed address therefore it is not possible to have multiple devices on the same bus. This can be remidied by placing multiple devices in front of a I\textsuperscript{2}C multiplexer. Table~\ref{tab:pinOut} lists thier functions.
+Each module has two buses that run to it, I\textsuperscript{2}C (pronounced I-two-C) and SPI. SPI requires data, clock, and a chip-select meaning each device on the bus will need an independent chip select. I\textsuperscript{2}C devices have a fixed address therefore it is not possible to have multiple devices on the same bus. This can be remedied by placing multiple devices in front of a I\textsuperscript{2}C multiplexer. Table~\ref{tab:pinOut} lists their functions.
 
 \begin{table}[!h]
     \centering
@@ -87,7 +87,7 @@ The SPI bus is connected directly to the MAX1932. Chip select is active low and 
 \lstinputlisting[language=C++, caption="max1932.ino", label={lst:max1932}]{./tex/mppcHighVoltage/source/max1932.ino}
 
 \subsubsection{ADC}
-The ADC communicates through the I\textsuperscript{2}C bus, the device address is permanently programed to \texttt{0101010 (0x2A)}. It is fully compliant with the I\textsuperscript{2}C protocol and the datasheet has the register map (page 28) and protocol description (page 14).
+The ADC communicates through the I\textsuperscript{2}C bus, the device address is permanently programmed to \texttt{0101010 (0x2A)}. It is fully compliant with the I\textsuperscript{2}C protocol and the datasheet has the register map (page 28) and protocol description (page 14).
 
 \lstinputlisting[language=C++, caption="nau7802.ino", label={lst:nau7802}]{./tex/mppcHighVoltage/source/nau7802.ino}
 
@@ -98,3 +98,4 @@ The ADC communicates through the I\textsuperscript{2}C bus, the device address i
 \lstinputlisting[language=C++, caption="NAU7802.h", basicstyle=\tiny, , label={lst:nau7802.h}]{./tex/mppcHighVoltage/source/nau7802/nau7802.h}
 \lstinputlisting[language=C++, caption="Nau7802.cpp", basicstyle=\tiny, label={lst:nau7802.cpp}]{./tex/mppcHighVoltage/source/nau7802/nau7802.cpp}
 \end{landscape}
+

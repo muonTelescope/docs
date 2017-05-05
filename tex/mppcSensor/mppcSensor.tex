@@ -1,18 +1,18 @@
 \section{MPPC Sensor}
 
-The board stack has a MPPC, preamp, temperature sensor, and LED. Having the pre-amp on board, just millimeters from the sensor allows excellent signal integrity, even in high noise environments. Also having the temperature sensor on the sensor, allows for fine adjustment due to local temperature fluctuations, as the gain is dependent on temperature and bias voltage, a constant gain can be maintained by changing the bias in response to temperature.
+The board stack has a MPPC, preamp, temperature sensor, and LED. Having the pre-amp on board, just millimetres from the sensor allows excellent signal integrity, even in high noise environments. Also, having the temperature sensor on the sensor, allows for fine adjustment due to local temperature fluctuations, as the gain is dependent on temperature and bias voltage, a constant gain can be maintained by changing the bias in response to temperature.
 
 \fig{./tex/mppcSensor/img/mppcSensorISOAssembled}{Assembled MPPC sensor board stack.}{assembledStack}
 
 \subsection{Hardware}
-This board houses a surface mount $\SI{2.0}{\milli\meter}$ MPPC by Hamamatsu. Specifically \texttt{S13360-20**VE} series. The signal is amplified with a TI OPA846 op-amp. There is a LED as well as a 100K NTC thermistor. The boards are all $\SI{7}{\milli\meter}$ tall, $\SI{25}{\milli\meter}$ wide and approximately $\SI{6.4}{\milli\meter}$ in depth without the pins. The spacer board blocks out excess light from reaching the MPPC, and provides isolation from the LED forcing it to go through the scintillator. It is attached with two 4-40 screws that can go directly into scintillator or a mounting block.
+This board houses a surface mount $\SI{2.0}{\milli\meter}$ MPPC by Hamamatsu. Specifically, \texttt{S13360-20**VE} series. The signal is amplified with a TI OPA846 op-amp. There is a LED as well as a 100K NTC thermistor. The boards are all $\SI{7}{\milli\meter}$ tall, $\SI{25}{\milli\meter}$ wide and approximately $\SI{6.4}{\milli\meter}$ in depth without the pins. The spacer board blocks out excess light from reaching the MPPC, and provides isolation from the LED forcing it to go through the scintillator. It is attached with two 4-40 screws that can go directly into scintillator or a mounting block.
 
 \begin{table}[h]
     \centering
     \begin{adjustbox}{width=\textwidth,center}
         \begin{tabular}{lllllrrr}
             \multicolumn{8}{ c }{MPPC High Voltage BOM} \\ \hline
-            \textbf{Ref-Des} & \textbf{Function}      & \textbf{Description}             & \textbf{P/N}                 & \textbf{Digikey P/N}   & \textbf{QTY} & \textbf{Unit Price} & \textbf{Ext Price}\\ \hline \hline
+            \textbf{Ref-Des} & \textbf{Function}    & \textbf{Description}               & \textbf{P/N}                 & \textbf{Digikey P/N}   & \textbf{QTY} & \textbf{Unit Price} & \textbf{Ext Price}\\ \hline \hline
             C9, C10        & Op-amp Power Filter    & CAP CER 1UF 25V X5R 0402           & \texttt{GRM155R61E105MA12D}  & \href{http://search.digikey.com/scripts/DkSearch/dksus.dll?Detail&name=490-10018-1-ND}{\texttt{490-10018-1-ND}}  & 1     & 0.03250    & 0.03   \\
             C11            & HV Filter              & CAP CER 0.047UF 50V X7R 0402       & \texttt{GRM155R71H473KE14D}  & \href{http://search.digikey.com/scripts/DkSearch/dksus.dll?Detail&name=490-10702-1-ND}{\texttt{490-10702-1-ND}}  & 1     & 0.01320    & 0.01   \\
             C7             & Decoupling             & CAP CER 1UF 10V X5R 0603           & \texttt{CL10A105KP8NNNC   }  & \href{http://search.digikey.com/scripts/DkSearch/dksus.dll?Detail&name=1276-1182-1-ND}{\texttt{1276-1182-1-ND}}  & 1     & 0.01400    & 0.01   \\
@@ -25,7 +25,7 @@ This board houses a surface mount $\SI{2.0}{\milli\meter}$ MPPC by Hamamatsu. Sp
             R11, R12, R14  & 51 ohm Term            & RES SMD 51 OHM 5\% 1/16W 0402      & \texttt{RC0402JR-0751RL   }  & \href{http://search.digikey.com/scripts/DkSearch/dksus.dll?Detail&name=311-51JRCT-ND }{\texttt{311-51JRCT-ND }}  & 3     & 0.00470    & 0.01   \\
             R13, R15       & Op-amp Gain/ HV Filter & RES SMD 1K OHM 0.1\% 1/16W 0402    & \texttt{RT0402BRD071KL    }  & \href{http://search.digikey.com/scripts/DkSearch/dksus.dll?Detail&name=YAG1386CT-ND  }{\texttt{YAG1386CT-ND  }}  & 2     & 0.12760    & 0.26   \\
             U1             & Op-Amp                 & IC OPAMP VFB 1.75GHZ SOT23-5       & \texttt{OPA846IDBVT       }  & \href{http://search.digikey.com/scripts/DkSearch/dksus.dll?Detail&name=296-14776-1-ND}{\texttt{296-14776-1-ND}}  & 1     & 3.74460    & 3.74   \\
-            J3             & Ouptut Header          & MINITEK                            & \texttt{98424-F52-08ALF   }  & \href{http://search.digikey.com/scripts/DkSearch/dksus.dll?Detail&name=609-5175-1-ND }{\texttt{609-5175-1-ND }}  & 1     & 1.04000    & 1.04   \\ \hline
+            J3             & Output Header          & MINITEK                            & \texttt{98424-F52-08ALF   }  & \href{http://search.digikey.com/scripts/DkSearch/dksus.dll?Detail&name=609-5175-1-ND }{\texttt{609-5175-1-ND }}  & 1     & 1.04000    & 1.04   \\ \hline
             \multicolumn{5}{ r }{ \href{http://www.oshpark.com/}{PCB Manufacture}}                                                                                                                                                         & 3     & 1.35000    & 4.05   \\ 
             \multicolumn{5}{ r }{ \href{http://www.smallbatchassembly.com/}{Assembly}}                                                                                                                                                     & 1     & 5.38000    & 5.38   \\ \cline{5-8}
             \multicolumn{5}{ r }{ Testing (Labour)}                                                                                                                                                                                        & 0.05  & 30.00000   & 1.50   \\ 
@@ -60,7 +60,6 @@ There are eight pins attached to back of the final board. Those pins break out a
     \label{tab:mppcSesnorBOM}
 \end{table}
 
-
 \fig{./tex/mppcSensor/img/mppcSensorPinout}{Pin numbering for Table~\ref{tab:pinOut}.}{mppcSensorPinout}
 
 \begin{table}[h]
@@ -81,7 +80,7 @@ There are eight pins attached to back of the final board. Those pins break out a
     \label{tab:pinOut}
 \end{table}
 
-The cable used is a 28AWG CAT6 cable, Monoprice's \href{http://www.monoprice.com/product?p_id=14812}{Slimrun} line is an option. This provides 8 conductors that are twisted pairs, along with a 8P8C connector. Wiring standard used is the following positions.
+The cable used is a 28AWG CAT6 cable, Monoprice's \href{http://www.monoprice.com/product?p_id=14812}{Slimrun} line is an option. This provides 8 conductors that are twisted pairs, along with an 8P8C connector. Wiring standard used is the following positions.
 
 \begin{table}[h]
     \centering
@@ -103,3 +102,4 @@ The cable used is a 28AWG CAT6 cable, Monoprice's \href{http://www.monoprice.com
 \fig{./tex/mppcSensor/img/mppcSensorISO1}{Exploded view of connector side.}{iso1}
 
 \pagebreak
+
